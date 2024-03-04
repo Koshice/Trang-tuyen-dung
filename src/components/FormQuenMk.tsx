@@ -52,7 +52,7 @@ const FormQuenMk: React.FC = () => {
 
         <Form.Item style={{ marginTop: '-20px'}}>
             <div style={{ display: 'flex', justifyContent: 'end' }}>
-                <Link to={"/"} className="login-form-forgot" style={{ color: '#F26D21' }}>
+                <Link to={"/login"} className="login-form-forgot" style={{ color: '#F26D21' }}>
                     Quay lại đăng nhập
                 </Link>
             </div>
