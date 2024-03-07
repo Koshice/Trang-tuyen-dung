@@ -1,15 +1,15 @@
 .ant-checkbox-wrapper:hover .ant-checkbox-inner {
-  border-color: orange !important;
+  border-color: #f26d21 !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: orange !important;
-  border-color: orange !important;
+  background-color: #f26d21 !important;
+  border-color: #f26d21 !important;
 }
 
 .ant-checkbox-wrapper:hover .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: orange !important;
-  border-color: orange !important;
+  background-color: #f26d21 !important;
+  border-color: #f26d21 !important;
 }
 .ant-modal-content {
   width: 400px !important;
@@ -29,6 +29,27 @@
   margin-bottom: 10px;
 }
 
+.searchComponent {
+  margin-right: -2px;
+  width: 270px !important;
+  height: 45px !important;
+}
+
+.searchComponent .ant-select-selector {
+  border: none;
+  border-radius: 0;
+}
+
+.searchComponent .ant-select-focused .ant-select-selector {
+  box-shadow: none;
+}
+
+.searchComponent
+  .ant-select:not(.ant-select-disabled):hover
+  .ant-select-selector {
+  border-color: none;
+}
+
 .custom-underline {
   position: relative;
   display: inline-block;
@@ -46,10 +67,26 @@
   background-color: #f26d21;
 }
 
+.ant-pagination-item-active a {
+  border-radius: 50px;
+  color: white !important;
+  border-color: #f26d21 !important;
+  background-color: #f26d21 !important;
+}
+
+.ant-pagination-item-active {
+  background-color: #f1f3f5 !important;
+  border-color: #f1f3f5 !important;
+}
+
 .footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  position: fixed;
   text-align: center;
+}
+
+.footer-content {
+  background-color: white;
+  padding: 10px 0;
 }

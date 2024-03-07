@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../components/Heading';
+import Heading from '../components/Auth/Header';
 import { Layout, Row, Col, Flex } from 'antd';
 import FormQuenMk from '../components/FormQuenMk';
 

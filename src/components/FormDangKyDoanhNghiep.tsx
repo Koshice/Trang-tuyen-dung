@@ -22,7 +22,7 @@ const FormDangKyDoanhNghiep: React.FC = () => {
     };
 
     return (
-        <div style={{ backgroundColor: '#F1F3F5', marginBottom: '60px', height: '100%' }}>
+        <div style={{ backgroundColor: '#F1F3F5', marginBottom: '60px'}}>
             <div style={{ margin: '0 200px 0 200px' }}>
                 <Title level={3} style={{ color: '#F26D21', paddingTop: '10px' }}>ĐIỀN THÔNG TIN ĐĂNG KÝ</Title>
                 
@@ -34,18 +34,18 @@ const FormDangKyDoanhNghiep: React.FC = () => {
                             <Form.Item
                                 className='formItem'
                                 name="name"
-                                rules={[{ required: true, message: 'Vui lòng nhập họ và tên' }]}
+                                rules={[{ required: true, message: 'Vui lòng nhập tên doanh nghiệp' }]}
                             >
-                                <Input className="formInput" placeholder='Nhập họ và tên'/>
+                                <Input className="formInput" placeholder='Nhập tên doanh nghiệp'/>
                             </Form.Item>
                             
                             <div style={{marginBottom: '5px', fontWeight: 'bold'}}>Email liên hệ<span style={{color:'red'}}>*</span></div>
                             <Form.Item
                                 className='formItem'
                                 name="email"
-                                rules={[{ required: true, message: 'Vui lòng nhập ngày sinh' }]}
+                                rules={[{ required: true, message: 'Vui lòng nhập email liên hệ' }]}
                             >
-                                <Input type="date" className="formInput" />
+                                <Input className="formInput" placeholder='Nhập email liên hệ'/>
                             </Form.Item>
                             
                             <div style={{marginBottom: '5px', fontWeight: 'bold'}}>Điện thoại<span style={{color:'red'}}>*</span></div>

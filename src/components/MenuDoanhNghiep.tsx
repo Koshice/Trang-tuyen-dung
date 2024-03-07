@@ -11,7 +11,7 @@ const Menu = () => {
     useEffect(() => {
         const path = window.location.pathname;
 
-        if (path === '/') {
+        if (path === '/enterprise') {
             setPage('Xem JD');
         } else if (path === '/signUpEnterprise') {
             setPage('Đăng ký');

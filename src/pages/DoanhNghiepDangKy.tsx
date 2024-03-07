@@ -7,9 +7,10 @@ const ThongTinDangKy = () => {
   return (
     <>
         <Menu></Menu>
-          <FormDangKy></FormDangKy>
-      
-        <Footer></Footer>
+        
+        <FormDangKy></FormDangKy>
+
+        <Footer position="fixed" />
     </>
   );
 };

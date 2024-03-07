@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Flex } from 'antd';
 
-const Heading = () => {
+const Header = () => {
   return (
     <>
       <Row>
@@ -24,4 +24,4 @@ const Heading = () => {
   );
 };
 
-export default Heading
+export default Header

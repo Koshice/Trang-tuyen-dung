@@ -1,7 +1,7 @@
 import React from 'react';
-import Heading from '../components/Heading';
+import Heading from '../components/Auth/Header';
 import { Layout, Row, Col, Flex } from 'antd';
-import FormDangNhap from '../components/FormDangNhap';
+import FormDangNhap from '../components/Auth/FormDangNhap';
 
 const DangNhap = () => {
   return (
