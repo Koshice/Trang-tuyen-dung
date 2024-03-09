@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import '../css/styles.css'
-import { SendOutlined, CloudUploadOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Form, Input, Select, Row, Col, Button, Upload, Typography, message } from 'antd';
+import React, { useState } from 'react';
+import { SendOutlined } from '@ant-design/icons';
+import { Form, Input, Row, Col, Button, Typography } from 'antd';
 
 
 const { Title } = Typography;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Heading from '../components/Auth/Header';
 import { Layout, Row, Col, Flex } from 'antd';
-import FormQuenMk from '../components/FormQuenMk';
+import FormQuenMk from '../components/Auth/FormQuenMk';
 
 const QuenMatKhau = () => {
   return (

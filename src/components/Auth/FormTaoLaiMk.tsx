@@ -1,8 +1,9 @@
-import '../css/styles.css'
+import '../../css/styles.css'
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Form, Input, Button, Modal } from 'antd';
+import PopUpTaoLaiMk from './PopUpTaoLaiMk';
 
 const { Title } = Typography;
 
@@ -14,6 +15,10 @@ const FormTaoLaiMk: React.FC = () => {
 
     const showModal = () => {
         setIsModalOpen(true);
+    };
+
+     const closeModal = () => {
+        setIsModalOpen(false);
     };
 
   return (
@@ -81,35 +86,7 @@ const FormTaoLaiMk: React.FC = () => {
             </Button>
         </Form.Item>
 
-        <Modal
-            open={isModalOpen}
-            style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center' 
-            }}
-            footer={null}
-        >
-            <div style={{ textAlign: 'center' }}>
-                <h2 style={{ color: '#F26D21' }}>Tạo mật khẩu thành công</h2>
-                <p>Đăng nhập ngay để bắt đầu <br></br> 
-                nhận được các cơ hội sự nghiệp lý tưởng</p>
-                
-                <Link to={'/'}>
-                    <Button style={{ 
-                        marginTop: '10px',
-                        background: '#F26D21',
-                        color: 'white',
-                        width: '160px',
-                        height: '40px' 
-                        }}>
-                            Đăng nhập ngay
-                    </Button>
-                </Link>
-            </div>
-        </Modal>
-
-
+        <PopUpTaoLaiMk open={isModalOpen} onClose={closeModal}></PopUpTaoLaiMk>
 
         <Form.Item style={{ marginTop: '-20px'}}>
             <div style={{ display: 'flex', justifyContent: 'end' }}>

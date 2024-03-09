@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authSlice from './slice/authSlice'
+import questionSlice from './slice/questionSlice'
 import collectionSlice from './slice/collectionSlice'
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
-    collections: collectionSlice
+    collections: collectionSlice,
+    questions: questionSlice
   },
 })
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Heading from '../components/Auth/Header';
 import { Layout, Row, Col, Flex } from 'antd';
-import FormTaoLaiMk from '../components/FormTaoLaiMk';
+import FormTaoLaiMk from '../components/Auth/FormTaoLaiMk';
 
 const TaoLaiMatKhau = () => {
   return (

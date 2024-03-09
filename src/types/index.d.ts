@@ -19,3 +19,11 @@ export interface ICollection {
   nameJob?: string
   requirement?: string
 }
+
+interface IQuestion {
+  id?: string;
+  questionText?: string;
+  options?: string[];
+  // correctAnswerIndex?: number;
+  questionType?: string;
+}

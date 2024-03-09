@@ -7,6 +7,7 @@ import { ICollection } from '../types'; // Import ICollection interface
 
 const Collections: React.FC = () => {
     const { collections: allCollections, loading, searchQuery } = useAppSelector(state => state.collections);
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredCollections, setFilteredCollections] = useState<ICollection[]>([]);
 

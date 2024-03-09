@@ -1,4 +1,4 @@
-import '../css/styles.css'
+import '../../css/styles.css'
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';

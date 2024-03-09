@@ -1,10 +1,8 @@
 import '../../css/styles.css'
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import React, { FormEvent, useState } from 'react';
-import { authLogin } from '../../redux/slice/authSlice';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Checkbox, Select, message } from 'antd';
 
@@ -17,15 +15,6 @@ const FormDangNhap: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const [remember, setRemember] = useState(false);
-
-  const dispatch = useDispatch()
-
-//   const handleSubmit = (e: FormEvent) => {
-//     e.preventDefault()
-
-//     const user = { role, username, password, remember }
-//     dispatch(authLogin(user))
-//   }
 
   const [error, setError] = useState('');
 
