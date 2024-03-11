@@ -41,6 +41,12 @@
   height: 45px !important;
 }
 
+.searchComponent {
+  margin-right: -2px;
+  width: 270px !important;
+  height: 45px !important;
+}
+
 .searchComponent .ant-select-selector {
   border: none;
   border-radius: 0;
@@ -57,8 +63,8 @@
 }
 
 .selectSubject {
-  border: none; /* Xóa border */
-  outline: none; /* Xóa đường viền khi focus */
+  border: none;
+  outline: none;
 }
 
 .custom-underline {
