@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography } from 'antd';
 import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
@@ -8,13 +8,23 @@ import Collections from '../components/Collections';
 const { Title } = Typography;
 
 const XemJDDoanhNghiep = () => {
+  const [selectedCompany, setSelectedCompany] = useState<string>('');
+  const [selectedNameJob, setSelectedNameJob] = useState<string>('');
+
+  const handleCompanyChange = (value: string) => {
+    setSelectedCompany(value);
+  };
+
+  const handleNameJobChange = (value: string) => {
+    setSelectedNameJob(value);
+  };
   return (
     <>
         <Menu></Menu>
       
         <div>
           <div style={{display: 'flex', justifyContent: 'center', marginTop: '40px'}}>
-            <SearchBar></SearchBar>
+            <SearchBar onCompanyChange={handleCompanyChange} onJobChange={handleNameJobChange}/>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -27,7 +37,7 @@ const XemJDDoanhNghiep = () => {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '650px'}}>
-                <Collections></Collections>
+              <Collections selectedCompany={selectedCompany} selectedNameJob={selectedNameJob}/>
           </div>
 
         </div>

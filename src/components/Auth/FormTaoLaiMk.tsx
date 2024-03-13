@@ -2,9 +2,9 @@ import '../../css/styles.css'
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Form, Input, Button } from 'antd';
 import PopUpTaoLaiMk from './PopUpTaoLaiMk';
 import { useMediaQuery } from 'react-responsive';
-import { Form, Input, Button, Modal } from 'antd';
 
 const { Title } = Typography;
 

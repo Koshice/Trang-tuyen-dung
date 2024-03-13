@@ -1,25 +1,20 @@
 import '../css/styles.css'
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { SendOutlined, CloudUploadOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Form, Input, Select, Row, Col, Button, Upload, Typography, message } from 'antd';
+import { CalendarOutlined } from '@ant-design/icons';
+import { SendOutlined, CloudUploadOutlined, PlusCircleOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Row, Col, Button, Upload, Typography, message, DatePicker } from 'antd';
 
 const { Title } = Typography;
 
 const FormDangKySinhVien: React.FC = () => {
+    const [value, setValue] = useState<any>(null);
+
+    const handleDatePickerChange = (date: any) => {
+        setValue(date);
+    };
+
     const [fileList, setFileList] = useState([]);
-
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    const handleChange = (info: any) => {
-        setFileList(info.fileList);
-    };
 
     const isDesktopOrLaptop = useMediaQuery({
         query: '(min-device-width: 1224px)'
@@ -95,11 +90,17 @@ const FormDangKySinhVien: React.FC = () => {
                                 
                                 <div style={{marginBottom: '5px', fontWeight: 'bold'}}>Ngày sinh<span style={{color:'red'}}>*</span></div>
                                 <Form.Item
-                                    className='formItem'
                                     name="birthday"
+                                    className='formItem'
                                     rules={[{ required: true, message: 'Vui lòng nhập ngày sinh' }]}
                                 >
-                                    <Input type="date" className="formInput" />
+                                    <DatePicker
+                                        value={value}
+                                        className="formInput"
+                                        placeholder='Ngày sinh'
+                                        onChange={handleDatePickerChange}
+                                        suffixIcon={<CalendarOutlined style={{ color: '#F26D21' }} />}
+                                    />
                                 </Form.Item>
 
                                 <div style={{marginBottom: '5px', fontWeight: 'bold'}}>Vị trí ứng tuyển<span style={{color:'red'}}>*</span></div>
@@ -108,9 +109,9 @@ const FormDangKySinhVien: React.FC = () => {
                                     name="position"
                                     rules={[{ required: true, message: 'Vui lòng chọn vị trí ứng tuyển' }]}
                                 >
-                                    <Select className="formInput" placeholder="Option 1">
-                                        <Select.Option value="option1">Option 1</Select.Option>
-                                        <Select.Option value="option2">Option 2</Select.Option>
+                                    <Select className="formInput" placeholder="Option 1" suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                        <Select.Option value="frontEnd">Front-end</Select.Option>
+                                        <Select.Option value="backEnd">Back-end</Select.Option>
                                     </Select>
                                 </Form.Item>
                                 
@@ -158,9 +159,9 @@ const FormDangKySinhVien: React.FC = () => {
                                     name="typeSignUp"
                                     rules={[{ required: true, message: 'Vui lòng chọn hình thức đăng ký' }]}
                                 >
-                                    <Select className="formInput" placeholder='Option 1'>
-                                        <Select.Option value="option1">Option 1</Select.Option>
-                                        <Select.Option value="option2">Option 2</Select.Option>
+                                    <Select className="formInput" placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                        <Select.Option value="online">Online</Select.Option>
+                                        <Select.Option value="offline">Offline</Select.Option>
                                     </Select>
                                 </Form.Item>
 
@@ -170,9 +171,9 @@ const FormDangKySinhVien: React.FC = () => {
                                     name="type"
                                     rules={[{ required: true, message: 'Vui lòng chọn hình thức thực hiện' }]}
                                 >
-                                    <Select className="formInput" placeholder='Option 1'>
-                                        <Select.Option value="option1">Option 1</Select.Option>
-                                        <Select.Option value="option2">Option 2</Select.Option>
+                                    <Select className="formInput" placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                        <Select.Option value="onSite">On site</Select.Option>
+                                        <Select.Option value="remote">Remote</Select.Option>
                                     </Select>
                                 </Form.Item>
 
@@ -181,9 +182,9 @@ const FormDangKySinhVien: React.FC = () => {
                                     name="source"
                                     rules={[{ required: true, message: 'Vui lòng chọn nguồn thông tin' }]}
                                 >
-                                    <Select className="formInput" placeholder='Option 1'>
-                                        <Select.Option value="option1">Option 1</Select.Option>
-                                        <Select.Option value="option2">Option 2</Select.Option>
+                                    <Select className="formInput" placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                        <Select.Option value="option1">Nhà trường</Select.Option>
+                                        <Select.Option value="option2">Mạng xã hội</Select.Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
@@ -259,7 +260,13 @@ const FormDangKySinhVien: React.FC = () => {
                             name="birthday"
                             rules={[{ required: true, message: 'Vui lòng nhập ngày sinh' }]}
                         >
-                            <Input style={{ width: '100%' }} type="date" />
+                            <DatePicker
+                                value={value}
+                                placeholder='Ngày sinh'
+                                style={{ width: '100%' }}
+                                onChange={handleDatePickerChange}
+                                suffixIcon={<CalendarOutlined style={{ color: '#F26D21' }} />}
+                            />
                         </Form.Item>
 
                         <div style={{marginBottom: '5px', fontWeight: 'bold'}}>Vị trí ứng tuyển<span style={{color:'red'}}>*</span></div>
@@ -268,9 +275,9 @@ const FormDangKySinhVien: React.FC = () => {
                             name="position"
                             rules={[{ required: true, message: 'Vui lòng chọn vị trí ứng tuyển' }]}
                         >
-                            <Select style={{ width: '100%' }} placeholder="Option 1">
-                                <Select.Option value="option1">Option 1</Select.Option>
-                                <Select.Option value="option2">Option 2</Select.Option>
+                            <Select style={{ width: '100%' }} placeholder="Option 1" suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                <Select.Option value="frontEnd">Front-end</Select.Option>
+                                <Select.Option value="backEnd">Back-end</Select.Option>
                             </Select>
                         </Form.Item>
                         
@@ -315,9 +322,9 @@ const FormDangKySinhVien: React.FC = () => {
                             name="typeSignUp"
                             rules={[{ required: true, message: 'Vui lòng chọn hình thức đăng ký' }]}
                         >
-                            <Select style={{ width: '100%' }} placeholder='Option 1'>
-                                <Select.Option value="option1">Option 1</Select.Option>
-                                <Select.Option value="option2">Option 2</Select.Option>
+                            <Select style={{ width: '100%' }} placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                <Select.Option value="online">Online</Select.Option>
+                                <Select.Option value="offline">Offline</Select.Option>
                             </Select>
                         </Form.Item>
 
@@ -327,9 +334,9 @@ const FormDangKySinhVien: React.FC = () => {
                             name="type"
                             rules={[{ required: true, message: 'Vui lòng chọn hình thức thực hiện' }]}
                         >
-                            <Select style={{ width: '100%' }} placeholder='Option 1'>
-                                <Select.Option value="option1">Option 1</Select.Option>
-                                <Select.Option value="option2">Option 2</Select.Option>
+                            <Select style={{ width: '100%' }} placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                <Select.Option value="onSite">On site</Select.Option>
+                                <Select.Option value="remote">Remote</Select.Option>
                             </Select>
                         </Form.Item>
 
@@ -338,9 +345,9 @@ const FormDangKySinhVien: React.FC = () => {
                             name="source"
                             rules={[{ required: true, message: 'Vui lòng chọn nguồn thông tin' }]}
                         >
-                            <Select style={{ width: '100%' }} placeholder='Option 1'>
-                                <Select.Option value="option1">Option 1</Select.Option>
-                                <Select.Option value="option2">Option 2</Select.Option>
+                            <Select style={{ width: '100%' }} placeholder='Option 1' suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}>
+                                <Select.Option value="option1">Nhà trường</Select.Option>
+                                <Select.Option value="option2">Mạng xã hội</Select.Option>
                             </Select>
                         </Form.Item>
                         <p><span style={{color:'red'}}>*</span> là những trường thông tin bắt buộc</p>

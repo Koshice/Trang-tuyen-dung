@@ -2,8 +2,8 @@ import React from 'react';
 import '../css/styles.css';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { PlusOutlined } from '@ant-design/icons';
-import { Form, Select, Row, Col, Button } from 'antd';
+import { PlusOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { Form, Select, Row, Col, Button, } from 'antd';
 
 const { Title } = Typography;
 
@@ -41,11 +41,12 @@ const FormChonDeThi = () => {
                                     width: '460px',
                                 }}
                                 placeholder="Chọn môn thi"
+                                suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                             >
-                                <Select.Option value="option1">Lập trình Front-end</Select.Option>
-                                <Select.Option value="option2">Lập trình Back-end</Select.Option>
-                                <Select.Option value="option2">VFX Artist</Select.Option>
-                                <Select.Option value="option2">UI/UX Design</Select.Option>
+                                <Select.Option value="frontEnd">Lập trình Front-end</Select.Option>
+                                <Select.Option value="backEnd">Lập trình Back-end</Select.Option>
+                                <Select.Option value="vfxArtist">VFX Artist</Select.Option>
+                                <Select.Option value="uiUxDesign">UI/UX Design</Select.Option>
                             </Select>
                         </Form.Item>
                     </div>

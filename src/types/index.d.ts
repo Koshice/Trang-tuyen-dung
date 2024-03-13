@@ -4,8 +4,8 @@ export interface IParams {
 }
 
 export interface ILogin {
-    role: string
-    username: string
+    // role: string
+    email: string
     password: string
     remember: boolean
 }

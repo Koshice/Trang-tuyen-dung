@@ -1,43 +1,68 @@
 import '../../css/styles.css'
 import { Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useMediaQuery } from 'react-responsive';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useAppDispatch } from '../../redux/hooks';
+import { authLogin } from '../../redux/slice/authSlice';
 import { Form, Input, Button, Checkbox, Select, message } from 'antd';
+import { ExclamationCircleOutlined, CaretDownOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { Title } = Typography;
 
+
 const FormDangNhap: React.FC = () => {
-  const [role, setRole] = useState<string | undefined>(undefined);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+    const [role, setRole] = useState<string | undefined>(undefined);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false);
 
-  const [remember, setRemember] = useState(false);
+    const [error, setError] = useState('');
+    const [isVerified, setIsVerified] = useState(false);
 
-  const [error, setError] = useState('');
+    const dispatch = useAppDispatch();
 
-  const [isVerified, setIsVerified] = useState(false);
+    const navigate = useNavigate();
 
-  const handleVerification = () => {
-    setIsVerified(true);
-  };
+    const handleVerification = () => {
+        setIsVerified(true);
+    };
+
+    const onFinish = async () => {
+        try {
+            if (isVerified) {
+                // await dispatch(authLogin({ email, password, remember }));
+
+                const userRole = determineUserRole(email, password); // Xác định role của người dùng
+                if (userRole === 'enterprise') {
+                    navigate('/enterprise'); // Chuyển hướng đến '/enterprise'
+                } else if (userRole === 'student') {
+                    navigate('/'); // Chuyển hướng đến '/'
+                }
+                message.success('Đăng nhập thành công!');
+            } else {
+                message.error('Vui lòng xác nhận bạn không phải là robot.');
+            }
+        } catch (error) {
+            setError('Sai tên đăng nhập hoặc mật khẩu.');
+        }
+    };
+
+    const determineUserRole = (email: string, password: string) => {
+        if (email === 'admin@gmail.com' && password === '123123') {
+            return 'enterprise';
+        } else if (email === 'khoa@gmail.com' && password === '123123') {
+            return 'student';
+        }
+        setError('Sai tên đăng nhập hoặc mật khẩu.');
+        return null;
+    };
 
   const isDesktopOrLaptop = useMediaQuery({
         query: '(min-device-width: 1224px)'
     });
-
-  const onFinish = (values: any) => {
-    const { username, password } = values;
-
-    if (username === 'admin' && password === 'admin') {
-      message.success('Đăng nhập thành công!');
-    } else {
-      setError('Sai tên đăng nhập hoặc mật khẩu.');
-    }
-  };
 
   return (
     <div>
@@ -50,7 +75,7 @@ const FormDangNhap: React.FC = () => {
                     name="normal_login"
                     className="login-form"
                     initialValues={{
-                    remember: true,
+                        remember: true,
                     }}
                     onFinish={onFinish}
                 >
@@ -64,31 +89,31 @@ const FormDangNhap: React.FC = () => {
                         ]}
                     >
                         <Select
+                            allowClear
                             value={role}
                             placeholder="Option"
-                            allowClear
                             onChange={(value) => setRole(value)}
+                            suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                         >
-                            <Option value="option1">Doanh nghiệp</Option>
-                            <Option value="option2">Sinh viên</Option>
-                            <Option value="other">Other</Option>
+                            <Option value="enterprise">Doanh nghiệp</Option>
+                            <Option value="student">Sinh viên</Option>
                         </Select>
                     </Form.Item>
 
                 <div style={{marginBottom: '5px'}}>Email<span style={{color:'red'}}>*</span></div>
                     <Form.Item
-                    name="username"
-                    rules={[
-                        {
-                        required: true,
-                        message: 'Vui lòng nhập tên đăng nhập!',
-                        },
-                    ]}
+                        name="username"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Vui lòng nhập tên đăng nhập!',
+                            },
+                        ]}
                     >
                     <Input
                         placeholder="Tên đăng nhập"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     </Form.Item>
                 
@@ -179,14 +204,14 @@ const FormDangNhap: React.FC = () => {
                     >
                         <Select
                             value={role}
-                            placeholder="Option"
                             allowClear
-                            onChange={(value) => setRole(value)}
+                            placeholder="Option"
                             style={{ width: '100%' }}
+                            onChange={(value) => setRole(value)}
+                            suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                         >
-                            <Option value="option1">Doanh nghiệp</Option>
-                            <Option value="option2">Sinh viên</Option>
-                            <Option value="other">Other</Option>
+                            <Option value="enterprise">Doanh nghiệp</Option>
+                            <Option value="student">Sinh viên</Option>
                         </Select>
                     </Form.Item>
 
@@ -203,8 +228,8 @@ const FormDangNhap: React.FC = () => {
                     <Input
                         placeholder="Tên đăng nhập"
                         style={{ width: '100%' }}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     </Form.Item>
                 

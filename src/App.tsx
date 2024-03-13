@@ -29,15 +29,20 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<XemJDSinhVien />} />
+        {/* Auth */}
         <Route path='/login' element={<DangNhap />} />
-        <Route path='/taoDeThi' element={<TaoDeThi />} />
         <Route path='/newPassword' element={<TaoLaiMatKhau />} />
         <Route path='/forgotPassword' element={<QuenMatKhau />} />
+
+        {/* Student */}
+        <Route path='/' element={<XemJDSinhVien />} />
+        <Route path='/taoDeThi' element={<TaoDeThi />} />
         <Route path='/thiTracNghiem' element={<ThiTracNghiem />} />
-        <Route path='/enterprise' element={<XemJDDoanhNghiep />} />
         <Route path='/signUpStudent' element={<DangKyTrucTuyen />} />
         <Route path='/tienTrinhHocTap' element={<TienTrinhHocTap />} />
+        
+        {/* Enterprise */}
+        <Route path='/enterprise' element={<XemJDDoanhNghiep />} />
         <Route path='/signUpEnterprise' element={<DangKyDoanhNghiep />} />
       </Routes>
     </Router>

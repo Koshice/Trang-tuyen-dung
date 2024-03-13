@@ -23,8 +23,6 @@ const Card: React.FC<IProps> = ({ collection }) => {
             <Col span={14} style={{ marginLeft: '10px'}}>
                 <Flex justify='start' align='middle' style={{ marginBottom: '10px'}}>
                     <img 
-                        // src={process.env.PUBLIC_URL + '/Image/Logo1.png'} 
-                        // alt="Logo1"
                         src={collection.logo}
                         alt={collection.logo}
                         style={{ width: '36px', height: '15%', marginRight: '10px' }}

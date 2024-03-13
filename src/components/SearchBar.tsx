@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
 import '../css/styles.css';
+import PopupFilter from './PopupFilter';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
-import { SearchOutlined, FilterOutlined } from '@ant-design/icons';
-import { setSearchQuery } from '../redux/slice/collectionSlice';
+import React, { useEffect, useState } from 'react';
 import { Form, Select, Row, Col, Button, Input } from 'antd';
+import { setSearchQuery } from '../redux/slice/collectionSlice';
+import { SearchOutlined, FilterOutlined, CaretDownOutlined } from '@ant-design/icons';
 
-export default function SearchBar() {
+const { Option } = Select;
+
+interface SearchBarProps {
+    onJobChange: (value: string) => void;
+    onCompanyChange: (value: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onJobChange, onCompanyChange }) => {
     const dispatch = useDispatch();
     const [query, setQuery] = useState('');
+    
+    const { collections: allCollections } = useAppSelector(state => state.collections);
+    const [companies, setCompanies] = useState<string[]>([]);
+    const [jobNames, setJobNames] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (allCollections && allCollections.length > 0) {
+            const uniqueCompanies = Array.from(
+                new Set(allCollections.map(collection => collection.company || ''))
+            );
+            const uniqueNameJob = Array.from(
+                new Set(allCollections.map(collection => collection.nameJob || ''))
+            );
+            setCompanies(['All', ...uniqueCompanies]);
+            setJobNames(['All', ...uniqueNameJob]);
+        }
+    }, [allCollections]);
+
 
     const isDesktopOrLaptop = useMediaQuery({
         query: '(min-device-width: 1224px)'
@@ -16,6 +43,32 @@ export default function SearchBar() {
 
     const handleSearch = () => {
         dispatch(setSearchQuery(query));
+    };
+
+    const handleCompanyChange = (value: string) => {
+        if (value === 'All') {
+            onCompanyChange('');
+        } else {
+            onCompanyChange(value);
+        }
+    };
+
+    const handleNameJobChange = (value: string) => {
+        if (value === 'All') {
+            onJobChange('');
+        } else {
+            onJobChange(value);
+        }
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+     const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -44,10 +97,13 @@ export default function SearchBar() {
                             <Form.Item name="expertise">
                                 <Select
                                     className='searchComponent'
-                                    placeholder="Chọn lĩnh vực chuyên môn"
+                                    placeholder="Chọn chuyên môn"
+                                    onChange={handleNameJobChange}
+                                    suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                                 >
-                                    <Select.Option value="option1">Option 1</Select.Option>
-                                    <Select.Option value="option2">Option 2</Select.Option>
+                                    {jobNames.map((jobName, index) => (
+                                        <Option key={index} value={jobName}>{jobName}</Option>
+                                    ))}
                                 </Select>
                             </Form.Item>
                         </div>
@@ -59,9 +115,12 @@ export default function SearchBar() {
                                 <Select
                                     className='searchComponent'
                                     placeholder="Chọn công ty"
+                                    onChange={handleCompanyChange}
+                                    suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                                 >
-                                    <Select.Option value="option1">Option 1</Select.Option>
-                                    <Select.Option value="option2">Option 2</Select.Option>
+                                    {companies.map((company, index) => (
+                                        <Option key={index} value={company}>{company}</Option>
+                                    ))}
                                 </Select>
                             </Form.Item>
                         </div>
@@ -117,17 +176,27 @@ export default function SearchBar() {
                                         fontSize: '16px',
                                         backgroundColor: '#F26D21',
                                     }}
-                                    onClick={handleSearch}
+                                    onClick={showModal}
                                 >
                                     <span>
                                         Lọc <i><FilterOutlined /></i>
                                     </span>
                                 </Button>
                             </Form.Item>
+                            <PopupFilter 
+                                open={isModalOpen} 
+                                nameJobs={jobNames}
+                                onClose={closeModal} 
+                                companies={companies} 
+                                onJobChange={handleNameJobChange}
+                                onCompanyChange={handleCompanyChange}
+                            />
                         </div>
                     </Col>
                 </Row>
-            )}            
+            )}
         </div>
     );
 }
+
+export default SearchBar;

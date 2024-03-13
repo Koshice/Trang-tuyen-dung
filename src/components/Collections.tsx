@@ -6,7 +6,12 @@ import { useAppSelector } from '../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
 import React, { useEffect, useState } from 'react';
 
-const Collections: React.FC = () => {
+interface CollectionsProps {
+  selectedNameJob: string;
+  selectedCompany: string;
+}
+
+const Collections: React.FC<CollectionsProps> = ({ selectedNameJob, selectedCompany }) => {
     const { collections: allCollections, loading, searchQuery } = useAppSelector(state => state.collections);
     
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,11 +19,14 @@ const Collections: React.FC = () => {
 
     useEffect(() => {
         const filtered = allCollections.filter(collection =>
-            collection.nameJob && collection.nameJob.toLowerCase().includes(searchQuery.toLowerCase())
+            collection.nameJob && 
+            collection.nameJob.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            (!selectedCompany || collection.company === selectedCompany) && 
+            (!selectedNameJob || collection.nameJob === selectedNameJob)// Filter by company if selected
         );
         setFilteredCollections(filtered);
         setCurrentPage(1);
-    }, [searchQuery, allCollections]);
+    }, [searchQuery, allCollections, selectedNameJob, selectedCompany]); // Include selectedCompany in dependencies
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -28,10 +36,10 @@ const Collections: React.FC = () => {
         query: '(min-device-width: 1224px)'
     });
 
-    let pageSize = 3; // Default pageSize for mobile
+    let pageSize = 3;
 
     if (isDesktopOrLaptop) {
-        pageSize = 9; // For desktop or laptop
+        pageSize = 9;
     }
 
     const startIndex = (currentPage - 1) * pageSize;

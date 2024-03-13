@@ -1,9 +1,9 @@
 import '../css/styles.css';
 import React, { useState } from 'react';
 import PopUpUngTuyen from './PopUpUngTuyen';
-import { SendOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import { Typography, Form, Select, Input, Button } from 'antd';
+import { SendOutlined, CaretDownOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -60,6 +60,7 @@ const FormTienTrinhHocTap = () => {
                                         width: '450px',
                                     }}
                                     placeholder="Chọn lớp / Chọn nhóm thực tập"
+                                    suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                                 >
                                     <Select.Option value="Lập trình Front-end">Lập trình Front-end</Select.Option>
                                     <Select.Option value="Lập trình Back-end">Lập trình Back-end</Select.Option>
@@ -133,9 +134,10 @@ const FormTienTrinhHocTap = () => {
                                 <Select
                                     style={{ width: '100%' }}
                                     placeholder="Chọn lớp / Chọn nhóm thực tập"
+                                    suffixIcon={<CaretDownOutlined style={{ color: '#F26D21' }}/>}
                                 >
-                                    <Select.Option value="Lập trình Front-end">Lập trình Front-end</Select.Option>
                                     <Select.Option value="Lập trình Back-end">Lập trình Back-end</Select.Option>
+                                    <Select.Option value="Lập trình Front-end">Lập trình Front-end</Select.Option>
                                     <Select.Option value="VFX Artist">VFX Artist</Select.Option>
                                     <Select.Option value="UI/UX Design">UI/UX Design</Select.Option>
                                 </Select>
