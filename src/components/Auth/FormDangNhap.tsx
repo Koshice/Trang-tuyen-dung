@@ -1,11 +1,11 @@
 import '../../css/styles.css'
 import { Typography } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useMediaQuery } from 'react-responsive';
 import { useAppDispatch } from '../../redux/hooks';
-import { authLogin } from '../../redux/slice/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginApi } from '../../redux/actions/authActions';
 import { Form, Input, Button, Checkbox, Select, message } from 'antd';
 import { ExclamationCircleOutlined, CaretDownOutlined } from '@ant-design/icons';
 
@@ -14,17 +14,15 @@ const { Title } = Typography;
 
 
 const FormDangNhap: React.FC = () => {
-    const [role, setRole] = useState<string | undefined>(undefined);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
-
-    const [error, setError] = useState('');
     const [isVerified, setIsVerified] = useState(false);
-
-    const dispatch = useAppDispatch();
-
-    const navigate = useNavigate();
+    const [role, setRole] = useState<string | undefined>(undefined); // Initialize with undefined for better handling
+    const [error, setError] = useState('');
 
     const handleVerification = () => {
         setIsVerified(true);
@@ -32,33 +30,36 @@ const FormDangNhap: React.FC = () => {
 
     const onFinish = async () => {
         try {
-            if (isVerified) {
-                // await dispatch(authLogin({ email, password, remember }));
+            // Check if all required fields are filled
+            if (!role || !email || !password) {
+                setError('Vui lòng điền đầy đủ thông tin.');
+                return;
+            }
 
-                const userRole = determineUserRole(email, password); // Xác định role của người dùng
-                if (userRole === 'enterprise') {
-                    navigate('/enterprise'); // Chuyển hướng đến '/enterprise'
-                } else if (userRole === 'student') {
-                    navigate('/'); // Chuyển hướng đến '/'
+            if (isVerified) {
+                // Authenticate user with email, password, and role
+                await loginApi(email, password, role);
+
+                // Redirect based on role
+                if (role === 'student') {
+                    navigate('/'); // Redirect to '/'
+                } else if (role === 'enterprise') {
+                    navigate('/enterprise'); // Redirect to '/enterprise'
                 }
+
                 message.success('Đăng nhập thành công!');
             } else {
                 message.error('Vui lòng xác nhận bạn không phải là robot.');
             }
-        } catch (error) {
-            setError('Sai tên đăng nhập hoặc mật khẩu.');
+        } catch (error: any) {
+            if (error.message === 'Wrong Role') {
+                setError('Vai trò không hợp lệ');
+            } else {
+                setError('Sai tên đăng nhập hoặc mật khẩu.');
+            }
         }
     };
 
-    const determineUserRole = (email: string, password: string) => {
-        if (email === 'admin@gmail.com' && password === '123123') {
-            return 'enterprise';
-        } else if (email === 'khoa@gmail.com' && password === '123123') {
-            return 'student';
-        }
-        setError('Sai tên đăng nhập hoặc mật khẩu.');
-        return null;
-    };
 
   const isDesktopOrLaptop = useMediaQuery({
         query: '(min-device-width: 1224px)'
@@ -158,7 +159,7 @@ const FormDangNhap: React.FC = () => {
                     
                     <Form.Item>
                         <ReCAPTCHA
-                            sitekey="6LeCxIQpAAAAAP_6WuXAeccik_VR0GW9nr4Eo09p"
+                            sitekey="6LeKuaMpAAAAAFLTDKwnomOZ-Z-glluIElA5yF2F"
                             onChange={handleVerification}
                         />
                     </Form.Item>
@@ -275,7 +276,7 @@ const FormDangNhap: React.FC = () => {
                     
                     <Form.Item>
                         <ReCAPTCHA
-                            sitekey="6LeCxIQpAAAAAP_6WuXAeccik_VR0GW9nr4Eo09p"
+                            sitekey="6LeKuaMpAAAAAFLTDKwnomOZ-Z-glluIElA5yF2F"
                             onChange={handleVerification}
                         />
                     </Form.Item>

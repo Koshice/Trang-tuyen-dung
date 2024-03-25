@@ -1,6 +1,6 @@
 import { db } from '../../firebase';
 import { ICollection } from "../../types"
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, getDocs } from 'firebase/firestore';
 
 export const getCollections = async () => {
   try {
